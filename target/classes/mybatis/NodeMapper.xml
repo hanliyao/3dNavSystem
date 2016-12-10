@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.litop.motorroom.db.mapper.NodeMapper" >
+  <resultMap id="BaseResultMap" type="com.litop.motorroom.db.bean.Node" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="module" property="module" jdbcType="VARCHAR" />
+    <result column="moduleName" property="moduleName" jdbcType="VARCHAR" />
+    <result column="action" property="action" jdbcType="VARCHAR" />
+    <result column="actionName" property="actionName" jdbcType="VARCHAR" />
+      <result column="parentId" property="parentId" jdbcType="INTEGER" />
+    <result column="data" property="data" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="authType" property="authType" jdbcType="INTEGER" />
+    <result column="groupId" property="groupId" jdbcType="INTEGER" />
+    <result column="often" property="often" jdbcType="INTEGER" />
+    <result column="often" property="often" jdbcType="INTEGER" />
+    <result column="isShow" property="isShow" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, module, moduleName, action, actionName, parentId,data, status, remark, sort, authType,
+    groupId, often, isShow
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lt_node
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lt_node
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.litop.motorroom.db.bean.Node" >
+    insert into lt_node (id, module, moduleName, 
+      action, actionName, parentId,data,
+      status, remark, sort, authType, 
+      groupId, often, isShow
+      )
+    values (#{id,jdbcType=INTEGER}, #{module,jdbcType=VARCHAR}, #{moduleName,jdbcType=VARCHAR}, 
+      #{action,jdbcType=VARCHAR}, #{actionName,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, #{data,jdbcType=VARCHAR},
+      #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{authType,jdbcType=INTEGER}, 
+      #{groupId,jdbcType=INTEGER}, #{often,jdbcType=INTEGER}, #{isShow,jdbcType=INTEGER}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.litop.motorroom.db.bean.Node" >
+    insert into lt_node
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="module != null" >
+        module,
+      </if>
+      <if test="moduleName != null" >
+        moduleName,
+      </if>
+      <if test="action != null" >
+        action,
+      </if>
+      <if test="actionName != null" >
+        actionName,
+      </if>
+        <if test="parentId != null" >
+            parentId,
+        </if>
+      <if test="data != null" >
+        data,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="authType != null" >
+        authType,
+      </if>
+      <if test="groupId != null" >
+        groupId,
+      </if>
+      <if test="often != null" >
+        often,
+      </if>
+      <if test="isShow != null" >
+        isShow,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="module != null" >
+        #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleName != null" >
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null" >
+        #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null" >
+        #{actionName,jdbcType=VARCHAR},
+      </if>
+        <if test="parentId != null" >
+            parentId,
+        </if>
+      <if test="data != null" >
+        #{data,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="authType != null" >
+        #{authType,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="often != null" >
+        #{often,jdbcType=INTEGER},
+      </if>
+      <if test="isShow != null" >
+        #{isShow,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.litop.motorroom.db.bean.Node" >
+    update lt_node
+    <set >
+      <if test="module != null" >
+        module = #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleName != null" >
+        moduleName = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null" >
+        action = #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null" >
+        actionName = #{actionName,jdbcType=VARCHAR},
+      </if>
+        <if test="parentId != null" >
+            parentId,
+        </if>
+      <if test="data != null" >
+        data = #{data,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="authType != null" >
+        authType = #{authType,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null" >
+        groupId = #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="often != null" >
+        often = #{often,jdbcType=INTEGER},
+      </if>
+      <if test="isShow != null" >
+        isShow = #{isShow,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.litop.motorroom.db.bean.Node" >
+    update lt_node
+    set module = #{module,jdbcType=VARCHAR},
+      moduleName = #{moduleName,jdbcType=VARCHAR},
+      action = #{action,jdbcType=VARCHAR},
+      actionName = #{actionName,jdbcType=VARCHAR},
+      parentId = #{parentId,jdbcType=INTEGER},
+      data = #{data,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      authType = #{authType,jdbcType=INTEGER},
+      groupId = #{groupId,jdbcType=INTEGER},
+      often = #{often,jdbcType=INTEGER},
+      isShow = #{isShow,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="select" parameterType="com.litop.motorroom.db.bean.Node" resultMap="BaseResultMap">
+    select * from lt_node  WHERE status=1
+  </select>
+
+
+
+  <select id="getAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from lt_node  WHERE status=1
+  </select>
+
+    <select id="getListByAuthType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from lt_node WHERE status=1 and authType=#{authType,jdbcType=INTEGER}
+    </select>
+
+
+    <!-- 获取所有菜单除了自身 -->
+    <select id="getNodesTreeWithoutId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT * FROM lt_node WHERE (parentId != #{id} or id = #{id}) and status=1 ORDER BY sort DESC ,id ASC
+    </select>
+
+  <!-- 获取系统根菜单 -->
+  <select id="selectNodesByPid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT * FROM lt_node
+    WHERE parentId = #{parentId}  and status=1 ORDER BY sort DESC ,id ASC
+  </select>
+
+
+    <select id="getNodeDynamicSql" parameterType="object[]" resultType="list">
+    select * from lt_node
+    <where>
+      <if test="array[0]">and moduleName like #{array[0]}</if>
+    </where>
+  </select>
+
+
+  <select id="getCounts" parameterType="map" resultType="java.lang.Integer">
+    select count(*) from lt_node
+    <where>
+      status=1
+      <if test="moduleName"> and moduleName like CONCAT('%',#{moduleName},'%')</if>
+    </where>
+
+  </select>
+
+  <!-- 分页查询 -->
+  <select id="selectNodeListPage" parameterType="map" resultMap="BaseResultMap">
+    select * from lt_node
+    <where>
+      status=1
+      <if test="moduleName"> and moduleName like CONCAT('%',#{moduleName},'%')</if>
+    </where>
+    ORDER BY sort DESC ,id ASC limit #{offset},#{pagesize}
+  </select>
+
+
+  <select id="getIdbyAction" parameterType="java.lang.String" resultType="java.lang.String">
+    select id
+    from lt_node
+    WHERE status=1 and action=#{action,jdbcType=INTEGER}
+  </select>
+
+
+
+</mapper>

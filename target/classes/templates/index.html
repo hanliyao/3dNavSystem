@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>2016世界物联网博览会</title>
+
+    <script th:inline="text">
+        var contextPath='[[${#httpServletRequest.getContextPath()}]]';
+
+    </script>
+
+    <script src="#" th:src="@{/js/jquery-1.10.2.min.js}"></script>
+    <script src="http://106.14.32.78/161051001_wiot/IndoorViewerAPI.js"></script>
+    <script type="text/javascript">
+        var indoorViewer = new IndoorViewer({
+            'base_url': 'http://106.14.32.78/161051001_wiot/',
+            'poi.editing.enabled': false,
+            'poi.share.enabled': false,
+            //'poi.view.enabled': false,
+            'poi.fullscreen': false,
+            'layers.map.visible': false,
+            'ui.search.visible': false,
+            'menu.settings.visible': false,
+            'menu.about.visible': false,
+            'menu.share.visible': false,
+            'menu.mode.visible': false,
+            'menu.pointcloud.visible': false,
+            'menu.datasets.visible': false,
+            'menu.poi.visible': false,
+            'menu.view.visible': false,
+            'ui.floorchanger.visible': false,
+        });
+    </script>
+
+    <link href="#" th:href="@{/style.css}" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript">
+        function searchSubmit() {
+            var keyWord=$('#keyWord').val();
+            if(keyWord==""){
+                alert("请输入搜索的关键字");
+            }
+            else{
+                $.ajax({
+                    url : contextPath+"/searchAjax",
+                    type : "POST",
+                    data : {"keyWord":keyWord},
+                    datatype : "json",
+                    success : function(data) {
+                        $('#dataList').html("");
+                        var count=0;
+                        var html="";
+                        $.each(data, function(i, item) {
+                            count++;
+                            html += "<div class=\"result\">";
+                            html += " <div class=\"image-pic\"><a  onClick=\"indoorViewer.moveToPOIID(" + item.id + ")\"><img class=\"start\" src=\""+contextPath+item.logo+"\"/><h3 >" + item.name + "</h3></a></div>";
+                            html += "        <div class=\"abstract\">" + item.product + "</div>";
+                            html += "        </div>";
+                        });
+                        var tag="<div class=\"num\">共为您找到相关结果约 " + count + " 个</div>";
+                        $("#dataList").append(tag);
+                        $("#dataList").append(html);
+
+                    }
+                });
+
+            }
+        }
+
+
+    </script>
+
+
+
+
+
+
+</head>
+
+<body>
+
+
+
+<div class="wrapper">
+    <div ng-include="'http://106.14.32.78/161051001_wiot/iv.html'" style="height:100%;"></div>
+
+    <div class="stage-top">
+        <div class="header">
+            <a href="" onClick="indoorViewer.swapScenes()"><i class="fa fa-map-marker fa-3"></i> 切换场景</a> | <a href="javascript:;" class="view" onClick="indoorViewer.getShareURL()"><i class="fa fa-map-o fa-3"></i> 概述</a>
+        </div>
+    </div>
+
+    <div class="stage-aside">
+        <div class="sidebarContainer" ng-controller="BarPfa.SidebarController">
+            <div class="sidebar">
+                <div class="logo"><img class="/images/logo.jpg" /></div>
+                <div class="bar-search">
+                    <form method="post" id="search-form" class="search-form" action="#"><input class="search-input" name="keyWord" id="keyWord" type="text" maxlength="50" required="required" placeholder="搜展商或产品"/><input class="btn search-submit" type="button" value="搜索" onclick="searchSubmit()"/></form>
+                </div>
+
+
+                <div class="sidebar-content" id="dataList">
+
+                    <div class="result" th:each="item : ${companyList}">
+                        <div class="image-pic"><a  th:onclick="'javascript:indoorViewer.moveToPOIID('+${item.positionId}+');'"><img class="start" src="#" th:src="@{${item.logo}}"/><h3 th:text="${item.name}"></h3></a></div>
+                        <div class="abstract" th:text="${item.product}"></div>
+                    </div>
+
+                    <!--<div class="num">共为您找到相关结果约 80 个</div>
+
+
+
+
+                    <div class="result">
+                        <div class="image-pic"><a onClick="indoorViewer.moveToPOIID(1)"><img class="start" src="/images/brands/one.jpg"/><h3>江苏徐工信息技术股份有限公司</h3></a></div>
+                        <div class="abstract">智能制造、物联网、 两化融合、电子商务、ERP、软件开发、系统集成</div>
+                    </div>
+
+                    <div class="result">
+                        <div class="image-pic"><a onClick="indoorViewer.moveToPOIID(2)"><img class="start" src="/images/brands/two.jpg"/><h3>无锡埃姆维工业控制设备有限公司</h3></a></div>
+                        <div class="abstract">机器视觉、机电工程、打码、智能安防、Rfid、工业机器人、AGV小车</div>
+                    </div>
+                    <div class="result">
+                        <div class="image-pic"><a onClick="indoorViewer.moveToPOIID(3)"><img class="start" src="/images/brands/two.jpg"/><h3>上海蓝鸟机电有限公司</h3></a></div>
+                        <div class="abstract">机电EPC工程、信息自动化、智造信息化、环保新能源、3D打印</div>
+                    </div>-->
+                </div>
+
+
+
+                <div class="sidebar-bottom">
+                    <!--<a href="javascript:;" class="btn btn-info-logout ng-hide" ng-click="logout()">退出</a>-->
+                    <a href="javascript:;" class="btn btn-info-login btn-login" ng-click="login()">如何使用</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <a class="logo-300guan mouse" href="/"><img src="#" th:src="@{/images/300guan.png}"/></a>
+    </div>
+
+    <div class="view-box">
+        <div class="row">
+            <span class="close popup-close" ng-click="closeLogin()"></span>
+            <div class="col-sm-1 col-sm-offset-1"><img src="#" th:src="@{/images/wubohui.png}" class="img-responsive"/><p>地址：无锡市太湖新城清舒道88号太湖国际博览中心<br />传真：+86-510-81821730<br />邮箱：wiotexpo@163.com</p></div>
+            <div class="col-sm-6">
+                <h3>物博会简介</h3>
+                <p>世界物联网博览会由中华人民共和国工业和信息化部、科学技术部与江苏省人民政府共同主办，定于2016年10月30日至11月1日在国家传感网创新示范区——江苏省无锡市举行。本届博览会以“创新物联时代、共享全球智慧”为主题，由世界物联网无锡峰会（包括1个主会议和8个高峰论坛）、物联网应用和产品展览展示、全国高校物联网应用创新大赛以及无锡国家传感网创新示范区部际建设协调领导小组第四次会议等活动组成。来自20多个国家和地区的5000多位政界人士、业界精英、学界权威，将围绕物联网与智能制造、智能环保、智能交通、智能医疗、信息安全、大数据、金融等专题，畅所欲言，交流思想，分享经验，凝聚共识。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-box">
+        <span class="close popup-close" ng-click="closeLogin()"></span>
+        <div class="logo"></div>
+        <div class="statement">请先登录以后再查看详情</div>
+        <a class="btn btn-info-login" ng-click="login()">登录</a>
+    </div>
+
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function($){
+        //打开窗口
+        $('.view').on('click', function(event){
+            event.preventDefault();
+            $('.view-box').addClass('is-visible');
+        });
+        //关闭窗口
+        $('.view-box').on('click', function(event){
+            if( $(event.target).is('.popup-close') ) {
+                event.preventDefault();
+                $(this).removeClass('is-visible');
+            }
+        });
+
+        //打开窗口
+        $('.btn-login').on('click', function(event){
+            event.preventDefault();
+            $('.login-box').addClass('is-visible');
+        });
+        //关闭窗口
+        $('.login-box').on('click', function(event){
+            if( $(event.target).is('.popup-close') ) {
+                event.preventDefault();
+                $(this).removeClass('is-visible');
+            }
+        });
+    });
+</script>
+</body>
+</html>

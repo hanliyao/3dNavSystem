@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.litop.motorroom.db.mapper.CompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.litop.motorroom.db.bean.Company" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="positionId" property="positionId" jdbcType="VARCHAR" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+    <result column="product" property="product" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, positionId,logo,product,content, sort, addtime, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  select
+  <include refid="Base_Column_List" />
+  from lt_company
+  where id = #{id,jdbcType=INTEGER}
+</select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lt_company
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.litop.motorroom.db.bean.Company" >
+    insert into lt_company (id, name, positionId, logo,product,content,sort, addtime, status)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{positionId,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR},#{product,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},
+      #{sort,jdbcType=INTEGER}, #{addtime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.litop.motorroom.db.bean.Company" >
+    insert into lt_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="positionId != null" >
+        positionId,
+      </if>
+      <if test="logo != null" >
+        positionId,
+      </if>
+      <if test="product != null" >
+        positionId,
+      </if>
+      <if test="content != null" >
+        positionId,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="positionId != null" >
+        #{positionId,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null" >
+        #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.litop.motorroom.db.bean.Company" >
+    update lt_company
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="positionId != null" >
+        positionId = #{positionId,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null" >
+        product = #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.litop.motorroom.db.bean.Company" >
+    update lt_company
+    set name = #{name,jdbcType=VARCHAR},
+      positionId = #{positionId,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      product = #{product,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+
+  <select id="getCounts" parameterType="map" resultType="java.lang.Integer">
+    select count(*) from lt_company
+    <where>
+      1=1
+      <if test="name"> and name like CONCAT('%',#{name},'%')</if>
+    </where>
+
+  </select>
+
+  <!-- 分页查询 -->
+  <select id="selectCompanyListPage" parameterType="map" resultMap="BaseResultMap">
+    select * from lt_company
+    <where>
+      1=1
+      <if test="name"> and name like CONCAT('%',#{name},'%')</if>
+    </where>
+    ORDER BY sort DESC ,id ASC limit #{offset},#{pagesize}
+  </select>
+
+
+
+  <!-- 模糊查询 -->
+  <select id="selectCompanyList" parameterType="map" resultMap="BaseResultMap">
+    select id, name, positionId,logo,product,content, sort from lt_company
+    <where>
+      1=1 and status=1
+      <if test="name"> and ( name like CONCAT('%',#{name},'%') or product like CONCAT('%',#{name},'%') )</if>
+    </where>
+    ORDER BY sort DESC ,id ASC
+  </select>
+
+
+</mapper>

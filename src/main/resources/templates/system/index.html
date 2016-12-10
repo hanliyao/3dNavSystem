@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="keywords" content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="ThemeBucket"/>
+    <link rel="shortcut icon" href="#" type="image/png"/>
+
+    <title>后台管理系统-主页</title>
+
+    <div th:include="public/public_css :: pub_css"></div>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="#" th:src="@{/js/html5shiv.js}"></script>
+    <script src="#" th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+
+
+</head>
+
+<body class="sticky-header">
+
+<section>
+    <!-- left side start-->
+    <div class="left-side sticky-left-side">
+
+        <!--logo and iconic logo start-->
+        <div class="logo">
+            <a href="index.html"><img src="#" alt="" th:src="@{/images/logo.png}"/></a>
+        </div>
+
+        <div class="logo-icon text-center">
+            <a href="index.html"><img src="#" alt="" th:src="@{/images/logo_icon.png}"/></a>
+        </div>
+        <!--logo and iconic logo end-->
+
+        <div class="left-side-inner">
+
+
+            <!-- visible to small devices only -->
+            <div th:include="public/small_header :: small_device_header"></div>
+
+            <!--sidebar nav start-->
+            <div th:include="public/public_menu :: pub_menu"></div>
+            <!--sidebar nav end-->
+
+
+
+        </div>
+    </div>
+    <!-- left side end-->
+
+
+
+    <!-- main content start-->
+    <div class="main-content" >
+
+        <!-- header section start-->
+        <div th:include="public/header :: pub_header" id="header"></div>
+        <!-- header section end-->
+
+
+        <!--body wrapper start-->
+        <div class="wrapper" id="wrapper">
+
+
+            <iframe id='iframeLitop' src="#" th:src="@{/system/indexInfo}" name="iframeLitop" border='0' frameBorder='no' height='100%' width='100%'></iframe>
+
+
+        </div>
+        <!--body wrapper end-->
+
+            <!--footer section start-->
+           <footer th:include="public/footer :: copy" id="footer"></footer>
+           <!--footer section end-->
+
+
+
+
+
+
+
+    </div>
+    <!-- main content end-->
+</section>
+
+
+<div th:include="public/public_js :: pub_js"></div>
+
+
+<script type="text/javascript">
+   $(document).ready(function () {
+       var windowHeight=$(window).height();
+       var headerHeight=$('header').height();
+       var footerHeight=$('footer').height();
+       var iframeHight=windowHeight-headerHeight-footerHeight;
+       $('#wrapper').height(iframeHight);
+       $('#iframeLitop').height(iframeHight);
+
+    });
+</script>
+
+
+</body>
+</html>

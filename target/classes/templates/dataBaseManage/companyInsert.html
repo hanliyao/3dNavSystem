@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="keywords" content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="ThemeBucket"/>
+    <link rel="shortcut icon" href="#" type="image/png"/>
+
+    <title>后台管理系统-主页</title>
+    <script th:inline="text">
+        var contextPath='[[${#httpServletRequest.getContextPath()}]]';
+    </script>
+    <div th:include="public/public_css :: pub_css"></div>
+
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="#" th:src="@{/js/html5shiv.js}"></script>
+    <script src="#" th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+</head>
+
+<body class="sticky-header" style="background-color:#FFF">
+
+
+        <!--body wrapper start-->
+        <div class="wrapper">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            新增位置节点
+                        </header>
+                        <div class="panel-body">
+                            <div class=" form">
+                                <form class="cmxform form-horizontal adminex-form" id="commentForm" method="post" action="#" th:action="@{/dataBaseManage/insertCompany}" enctype="multipart/form-data">
+                                    <div class="form-group ">
+                                        <label for="name" class="control-label col-lg-2">名称 (<span style="color: red">*</span>)</label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="name" name="name" minlength="2" type="text" required="" value=""/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                    <label for="logoFile" class="control-label col-lg-2">LOGO</label>
+                                    <div class="col-lg-10">
+                                        <input class=" form-control" id="logoFile" name="logoFile" type="file"/>
+                                    </div>
+                                </div>
+                                    <div class="form-group ">
+                                        <label for="name" class="control-label col-lg-2">产品 (<span style="color: red">*</span>)</label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="product" name="product" minlength="2" type="text" required="" value=""/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="sort" class="control-label col-lg-2">排序 </label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="sort" name="sort" minlength="2" type="number" value="0"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="sort" class="control-label col-lg-2">位置节点编号 (<span style="color: red">*</span>)</label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="positionId" name="positionId" minlength="1" type="number" required="" value=""/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="name" class="control-label col-lg-2">描述</label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="content" name="content" minlength="2" type="text"  value=""/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="status" class="control-label col-lg-2">状态 </label>
+                                        <div class="col-lg-2">
+                                            <select class="form-control m-bot15" id="status" name="status">
+                                                <option value="0">请选择</option>
+                                                <option value="1" selected = "selected">启用</option>
+                                                <option value="2">禁用</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-lg-offset-2 col-lg-10">
+                                            <button class="btn btn-primary" type="submit" onclick="return submitForm()">保存</button>
+                                            <button class="btn btn-default" type="button">取消</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </div>
+        <!--body wrapper end-->
+
+        <div th:include="public/public_js :: pub_js"></div>
+
+
+        <script type="text/javascript">
+            function submitForm() {
+                var flag=true;
+              if( $('#attributetype').val()=="0"){
+                  alert("请选择");
+                  $('#attributetype').focus();
+                  flag=false;
+              }
+                return flag;
+            }
+        
+
+
+        </script>
+
+</body>
+</html>

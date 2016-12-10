@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="keywords" content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="ThemeBucket"/>
+    <link rel="shortcut icon" href="#" type="image/png"/>
+
+    <title>后台管理系统-主页</title>
+
+    <div th:include="public/public_css :: pub_css"></div>
+
+
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="#" th:src="@{/js/html5shiv.js}"></script>
+    <script src="#" th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+</head>
+
+<body class="sticky-header"  style="background-color:#FFF">
+
+        <!--body wrapper start-->
+        <div class="wrapper">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            新增菜单
+                        </header>
+                        <div class="panel-body">
+                            <div class=" form">
+                                <form class="cmxform form-horizontal adminex-form" id="commentForm" method="post" action="#" th:action="@{/node/insert}">
+                                    <div class="form-group ">
+                                    <label for="moduleName" class="control-label col-lg-2">名称(<span style="color: red">*</span>)</label>
+                                    <div class="col-lg-10">
+                                        <input class=" form-control" id="moduleName" name="moduleName" minlength="2" type="text" required="" value=""/>
+                                    </div>
+                                   </div>
+                                    <div class="form-group ">
+                                        <label for="module" class="control-label col-lg-2">英文名称</label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="module" name="module" minlength="2" type="text" value=""/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="action" class="control-label col-lg-2">Action Url</label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="action" name="action" minlength="2" type="text"  value=""/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="actionName" class="control-label col-lg-2">Action Url中文名称</label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="actionName" name="actionName" minlength="2" type="text"  value=""/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="authType" class="control-label col-lg-2">类型 </label>
+                                        <div class="col-lg-2">
+                                            <select class="form-control m-bot15" id="authType" name="authType">
+                                                <option value="0">模块</option>
+                                                <option value="1">菜单</option>
+                                                <option value="2">操作</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="parentId" class="control-label col-lg-2" >所属目录</label>
+                                        <div class="col-lg-2">
+                                            <select class="form-control m-bot15" id="parentId" name="parentId" >
+                                                <option value="0">一级目录</option>
+                                                <option th:each="node : ${nodeList}" th:value="${node.id}" th:text="${node.moduleName}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="data" class="control-label col-lg-2">图标样式 </label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="data" name="data" minlength="2" type="text" value=""/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="sort" class="control-label col-lg-2">排序 </label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="sort" name="sort" minlength="2" type="number" value="0"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="remark" class="control-label col-lg-2">备注</label>
+                                        <div class="col-lg-10">
+                                            <textarea class="form-control " id="remark" name="remark"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label for="status" class="control-label col-lg-2">状态 </label>
+                                        <div class="col-lg-2">
+                                            <select class="form-control m-bot15" id="status" name="status">
+                                                <option value="0">请选择</option>
+                                                <option value="1">启用</option>
+                                                <option value="2">禁用</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-lg-offset-2 col-lg-10">
+                                            <button class="btn btn-primary" type="submit">保存</button>
+                                            <button class="btn btn-default" type="button">取消</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </div>
+        <!--body wrapper end-->
+
+
+
+
+<div th:include="public/public_js :: pub_js"></div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.litop.motorroom.db.mapper.URMapper">
+
+    <resultMap id="UR" type="com.litop.motorroom.db.bean.UR" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="userId" property="userId" jdbcType="INTEGER" />
+        <result column="roleId" property="roleId" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, roleId, roleId
+    </sql>
+    <select id="getRolebyUserID" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+        select roleId
+        from lt_role_user
+        where userId = #{userId,jdbcType=INTEGER}
+    </select>
+
+    <select id="getUserByRoleID" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+        select userId
+        from lt_role_user
+        where roleId = #{roleId,jdbcType=INTEGER}
+    </select>
+
+
+</mapper>

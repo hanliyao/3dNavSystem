@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="keywords" content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="ThemeBucket"/>
+    <link rel="shortcut icon" href="#" type="image/png"/>
+
+    <title>后台管理系统-主页</title>
+    <div th:include="public/public_css :: pub_css"></div>
+
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="#" th:src="@{/js/html5shiv.js}"></script>
+    <script src="#" th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+</head>
+
+<body class="sticky-header" style="background-color:#FFF">
+
+
+<!--body wrapper start-->
+<div class="wrapper">
+
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    编辑个人信息
+                </header>
+                <div class="panel-body">
+                    <div class="adv-table">
+                        <div class="clearfix">
+                            <div class="btn-group pull-right">
+                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
+                                </button>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="#" th:href="@{/adminInfo/updatepwd}" target="iframeLitop">修改密码</a></li>
+                                    <li><a href="#">Save as PDF</a></li>
+                                    <li><a href="#">Export to Excel</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+
+                            <div class="panel-body">
+                                <form class="cmxform form-horizontal adminex-form" id="commentForm" method="post" action="#" th:action="@{/adminInfo/update}">
+                                    <input type="hidden" id="id" name="id" th:value="${admin.id}" />
+
+                                    <div class="form-group ">
+                                        <label for="userName" class="control-label col-lg-2">用户名(<span style="color: red">*</span>)</label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="userName" name="userName" minlength="2" type="text" required="" value="" th:value="${admin.userName}" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="realName" class="control-label col-lg-2">真是姓名</label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="realName" name="realName" minlength="2" type="text" value="" th:value="${admin.realName}"/>
+                                        </div>
+                                    </div>
+                                    <input name="password" type="hidden"  value="" th:value="${admin.password}"/>
+                                    <div class="form-group ">
+                                        <label for="roleId" class="control-label col-lg-2">角色</label>
+                                        <div class="col-lg-10">
+                                            <input class=" form-control" id="roleId" name="roleId" minlength="2" type="text"  value="" th:value="${admin.roleId}" />
+                                        </div>
+                                    </div>
+                                    <input name="status" type="hidden"  value="" th:value="${admin.status}"/>
+                                    <div class="form-group">
+                                        <div class="col-lg-offset-2 col-lg-10">
+                                            <button class="btn btn-primary" type="submit">保存</button>
+                                            <button class="btn btn-default" type="button">取消</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div th:include="public/public_js :: pub_js"></div>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+</script>
+
+</body>
+</html>

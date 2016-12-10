@@ -1,0 +1,32 @@
+
+<div th:fragment="pub_page">
+
+
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="dataTables_info pagination" id="editable-sample_info">共<span  th:text="${page.totalResult}">0</span>条记录   &nbsp;&nbsp;共<span  th:text="${page.totalPage}">0</span>页&nbsp;&nbsp;当前第<span  th:text="${page.currentPage}">1</span>页</div>
+        </div>
+        <div class="col-lg-6">
+            <div class="dataTables_paginate paging_bootstrap pagination">
+                <ul th:utext ="${pageStr}">
+
+                    <!--  <li class="prev disabled"><a href="#">← Prev</a></li>
+                      <li class="active"><a href="#">1</a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">4</a></li>
+                      <li><a href="#">5</a></li>
+                      <li class="next"><a href="#">Next → </a></li>
+                      -->
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="keywords" content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="ThemeBucket"/>
+    <link rel="shortcut icon" href="#" type="image/png"/>
+
+    <title>后台管理系统-主页</title>
+
+    <div th:include="public/public_css :: pub_css"></div>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="#" th:src="@{/js/html5shiv.js}"></script>
+    <script src="#" th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+</head>
+
+<body class="sticky-header" style="background-color:#FFF">
+
+
+        <!--body wrapper start-->
+        <div class="wrapper">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            角色列表
+                        </header>
+                        <div class="panel-body">
+                            <div class="adv-table">
+
+                                <div class="clearfix">
+                                    <div class="btn-group">
+                                        <a id="editable-sample_new" class="btn btn-primary" href="#" th:href="@{/role/preInsert}">
+                                            新增角色 <i class="fa fa-plus"></i>
+                                        </a>
+                                    </div>
+                                    <div class="btn-group pull-right">
+                                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><a href="#">Print</a></li>
+                                            <li><a href="#">Save as PDF</a></li>
+                                            <li><a href="#">Export to Excel</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="space15" style="height: 15px;"></div>
+
+                                <table  class="display table table-bordered table-striped" id="dynamic-table">
+                                    <thead>
+                                    <tr>
+                                        <th>用户名</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <tr class="" th:each="role : ${roleList}">
+                                        <input type="hidden" th:value="${role.id}" />
+                                        <td th:text="${role.name}"></td>
+                                        <td th:switch="${role.status}">
+                                            <p th:case="'1'">启用</p>
+                                            <p th:case="'2'">禁用</p>
+                                            <p th:case="'*'">未知</p>
+                                        </td>
+                                        <td><a class="edit" href="#" th:href="@{/role/update/{id}(id=${role.id})}">更新</a><span style="margin: 0px 10px">|</span><a class="delete" href="#" th:href="@{/role/delete/{id}(id=${role.id})}" onclick="javascript:return delConfirm()">删除</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+
+            <!--pub_page start-->
+            <div th:include="public/public_page :: pub_page"></div>
+            <!--pub_page end-->
+
+        </div>
+        <!--body wrapper end-->
+
+
+<div th:include="public/public_js :: pub_js"></div>
+
+
+
+        <script type="text/javascript">
+
+            function delConfirm() {
+                var msg = "您真的确定要删除吗？\n\n请确认！";
+                if (confirm(msg)==true){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        </script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.litop.motorroom.db.mapper.UserMapper">
+
+  <resultMap id="user" type="User" >
+    <id  column="id" property="id" />
+    <result column="userName" property="userName" />
+    <result column="password" property="password" />
+    <result column="createTime" property="createTime" />
+    <result column="updateTime" property="updateTime" />
+    <result column="status" property="status" />
+  </resultMap>
+
+  <select id="getAll" parameterType="int" resultMap="user">
+    select * from lt_user
+  </select>
+
+  <insert id="insert" parameterType="User">
+    insert into lt_user(userName, password,createTime,updateTime,status) values (#{userName}, #{password},#{createTime},#{updateTime}, #{status})
+  </insert>
+
+  <select id="findUserById" parameterType="int" resultMap="user">
+    select * from lt_user where id = #{id}
+  </select>
+
+  <select id="findUserByUserName" parameterType="string" resultMap="user">
+    select * from lt_user where userName = #{userName}
+  </select>
+
+
+  <update id="update" parameterType="User">
+    update lt_user set  status = #{status} , updateTime = #{updateTime} where id = #{id}
+  </update>
+
+  <delete id="delete" parameterType="int">
+   delete from lt_user where id = #{id}
+  </delete>
+
+
+
+
+  <select id="getCounts" parameterType="map" resultType="java.lang.Integer">
+    select count(*) from lt_user
+    <where>
+      1=1
+      <if test="userName"> and userName like CONCAT('%',#{userName},'%')</if>
+    </where>
+
+  </select>
+
+  <!-- 分页查询 -->
+  <select id="selectUserListPage" parameterType="map" resultMap="user">
+    select * from lt_user
+    <where>
+      1=1
+      <if test="userName"> and userName like CONCAT('%',#{userName},'%')</if>
+    </where>
+    ORDER BY id DESC limit #{offset},#{pagesize}
+  </select>
+
+
+</mapper>

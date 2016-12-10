@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="keywords" content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="ThemeBucket"/>
+    <link rel="shortcut icon" href="#" type="image/png"/>
+
+    <title>后台管理系统-主页</title>
+    <div th:include="public/public_css :: pub_css"></div>
+
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="#" th:src="@{/js/html5shiv.js}"></script>
+    <script src="#" th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+</head>
+
+<body class="sticky-header" style="background-color:#FFF">
+
+
+        <!--body wrapper start-->
+        <div class="wrapper">
+
+
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            菜单列表&nbsp;&nbsp;<span style="color: red;font-size: 12px;font-weight:normal">温馨提示：非开发人员，请勿操作此模块!</span>
+                        </header>
+                        <div class="panel-body">
+                            <div class="adv-table">
+                                <div class="clearfix">
+                                   <!-- th:if="${insert}"-->
+                                    <div class="btn-group">
+                                        <a id="editable-sample_new" class="btn btn-primary" href="#" th:href="@{/node/preInsert}">
+                                            新增菜单 <i class="fa fa-plus"></i>
+                                        </a>
+                                    </div>
+                                    <div class="btn-group pull-right">
+                                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><a href="#">Print</a></li>
+                                            <li><a href="#">Save as PDF</a></li>
+                                            <li><a href="#">Export to Excel</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+
+                                <div class="panel-body">
+                                    <form class="form-horizontal adminex-form" method="get" id="commentForm" action="#" th:action="@{/node/index}">
+                                        <div class="form-group">
+                                            <label class="col-sm-1 control-label col-lg-1">名称</label>
+                                            <div class="col-sm-2 col-lg-2">
+                                                <input class="form-control m-bot15" id="moduleName" name="moduleName" type="text" placeholder="请输入名称" style="width: 150px;" th:value="${response.moduleName}"/>
+                                            </div>
+
+                                            <div class="col-sm-2 col-lg-2">
+                                                <button class="btn btn-primary" type="submit">查询</button>&nbsp;&nbsp;<button class="btn btn-primary" type="button" onclick="javascript:window.location.href ='/node/index';">清空</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                 </div>
+                                </div>
+
+                                <table  class="display table table-bordered table-striped" id="dynamic-table">
+                                    <thead>
+                                    <tr>
+                                        <th>名称</th>
+                                        <th>类型</th>
+                                        <th>Action Url</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <tr class="" th:each="node : ${nodeList}">
+                                        <input type="hidden" th:value="${node.id}" />
+                                        <td th:text="${node.moduleName}"></td>
+                                        <td th:switch="${node.authType}">
+                                            <p th:case="'0'">模块</p>
+                                            <p th:case="'1'">菜单</p>
+                                            <p th:case="'2'">操作</p>
+                                        </td>
+                                        <td th:text="${node.action}"></td>
+                                        <td class="center" th:text="${node.status}==1?'启用':'禁用'"></td>
+                                        <td><a class="edit" href="#" th:href="@{/node/update/{id}(id=${node.id})}" >更新</a><span style="margin: 0px 10px">|</span><a class="delete" href="#" th:href="@{/node/delete/{id}(id=${node.id})}" onclick="javascript:return delConfirm()">删除</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!--pub_page start-->
+            <div th:include="public/public_page :: pub_page"></div>
+            <!--pub_page end-->
+
+        </div>
+        <!--body wrapper end-->
+
+
+
+<div th:include="public/public_js :: pub_js"></div>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+
+
+    function delConfirm() {
+        var msg = "您真的确定要删除吗？\n\n请确认！";
+        if (confirm(msg)==true){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+
+</script>
+
+</body>
+</html>

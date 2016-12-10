@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="keywords" content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="ThemeBucket"/>
+    <link rel="shortcut icon" href="#" type="image/png"/>
+
+    <title>后台管理系统-主页</title>
+
+    <div th:include="public/public_css :: pub_css"></div>
+    <link rel="stylesheet" type="text/css" href="#" th:href="@{/js/nestable/jquery.nestable.css}" />
+
+    <link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
+    <link href="#" th:href="@{/css/style-responsive.css}" rel="stylesheet"/>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="#" th:src="@{/js/html5shiv.js}"></script>
+    <![endif]-->
+</head>
+
+<body class="sticky-header"  style="background-color:#FFF">
+
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="row">
+        <div class="col-lg-6">
+            <section class="panel">
+                <header class="panel-heading">
+                    Nestable List 1
+                             <span class="tools pull-right">
+                                <a class="fa fa-chevron-down" href="javascript:;"></a>
+                                <a class="fa fa-times" href="javascript:;"></a>
+                            </span>
+                </header>
+                <div class="panel-body">
+                    <div class="dd" id="nestable_list_1">
+                        <ol class="dd-list">
+                            <li class="dd-item" data-id="2" th:each="node:${root.child}">
+                                <div class="dd-handle" th:if="${node.status}">
+                                     <input type="checkbox" checked="checked" onclick="show(this)" th:name="${node.moduleID}"/><label th:text="${node.moduleName}"></label>
+                                </div>
+                                <div class="dd-handle" th:unless="${node.status}">
+                                    <input type="checkbox" onclick="show(this)" th:name="${node.moduleID}"/><label th:text="${node.moduleName}"></label>
+                                </div>
+                                <ol class="dd-list">
+                                    <li class="dd-item" data-id="5" th:each="item:${node.child}">
+                                        <div class="dd-handle" th:if="${item.status}">
+                                            <input type="checkbox" checked="checked" onclick="show(this)" th:name="${item.moduleID}"/><label th:text="${item.moduleName}"></label>
+                                        </div>
+                                        <div class="dd-handle" th:unless="${item.status}">
+                                            <input type="checkbox" onclick="show(this)" th:name="${item.moduleID}"/><label th:text="${item.moduleName}"></label>
+                                        </div>
+                                        <ol class="dd-list">
+                                            <li class="dd-item" data-id="6" th:each="action:${item.child}">
+                                                <div class="dd-handle" th:if="${action.status}">
+                                                    <input type="checkbox" checked="checked" onclick="show(this)" th:name="${action.moduleID}"/><label th:text="${action.moduleName}"></label>
+                                                </div>
+                                                <div class="dd-handle" th:unless="${action.status}">
+                                                    <input type="checkbox" onclick="show(this)" th:name="${action.moduleID}"/><label th:text="${action.moduleName}"></label>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </div>
+                    <form action="#" th:action="@{/system/authChange}" id="subData" method="post">
+                        <input type="button" value="保存" onclick="saveForm()"/>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!--body wrapper end-->
+
+
+<div th:include="public/public_js :: pub_js"></div>
+<script type="text/javascript">
+    var map = new HashMap();
+    function show(info)
+    {
+        if(info.checked)
+        {
+            map.put(info.name,1);
+        }else
+        {
+            map.put(info.name,0);
+        }
+    }
+    function saveForm()
+    {
+        var frm = $('#subData');
+        var data = map.keys();
+        var Message = "";
+        for( var node in data)
+        {
+            Message = Message + data[node]+","+map.get(data[node])+";";
+        }
+        alert("hello world");
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            dataType: 'json',
+            data : {"message":Message},
+            success : function(){
+
+            },
+            error : function(){
+            }
+		});
+
+    }
+    function HashMap()
+    {
+        var size = 0;
+        var entry = new Object();
+        this.put = function (key , value)
+        {
+            if(!this.containsKey(key))
+            {
+                size ++ ;
+            }
+            entry[key] = value;
+        }
+        this.get = function (key)
+        {
+            return this.containsKey(key) ? entry[key] : null;
+        }
+        this.remove = function ( key )
+        {
+            if( this.containsKey(key) )
+            {
+                if( delete entry[key] )
+                {
+                    size --;
+                }
+            }
+        }
+        this.containsKey = function ( key )
+        {
+            return (key in entry);
+        }
+        this.containsValue = function ( value )
+        {
+            for(var prop in entry)
+            {
+                if(entry[prop] == value)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        this.values = function ()
+        {
+            var values = new Array();
+            for(var prop in entry)
+            {
+                values.push(entry[prop]);
+            }
+            return values;
+        }
+        this.keys = function ()
+        {
+            var keys = new Array();
+            for(var prop in entry)
+            {
+                keys.push(prop);
+            }
+            return keys;
+        }
+        this.size = function ()
+        {
+            return size;
+        }
+        this.clear = function ()
+        {
+            size = 0;
+            entry = new Object();
+        }
+    }
+</script>
+</body>
+</html>

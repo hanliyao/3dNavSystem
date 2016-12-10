@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.litop.motorroom.db.mapper.SettingMapper">
+  <resultMap id="setting" type="com.litop.motorroom.db.bean.Setting" >
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="data" property="data" jdbcType="VARCHAR" />
+  </resultMap>
+
+ <select id="getAll" parameterType="map" resultMap="setting">
+    select * from lt_setting
+  </select>
+
+  <select id="findSettingByName" parameterType="map" resultMap="setting">
+    select * from lt_setting where name = #{name}
+  </select>
+
+  <update id="update" parameterType="map">
+    update lt_setting set data = #{data} where name = #{name}
+  </update>
+
+
+
+
+</mapper>
